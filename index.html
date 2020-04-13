@@ -1,0 +1,87 @@
+<script>
+function board(container)
+{
+	var table = document.createElement("table");
+
+	var letters = [ 'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'к' ];
+	var numbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
+
+	for (var j = 0; j < 11; j++)
+	{
+		var row = table.insertRow(j);
+		for (var i = 0; i < 11; i++)
+		{
+			var cell = row.insertCell(i);
+
+			if (j == 0)
+			{
+				if (i == 0) continue;
+
+				var text = document.createTextNode(letters[i - 1]);
+				cell.appendChild(text);
+				continue;
+			}
+
+			if (i == 0)
+			{
+				if (j == 0) continue;
+
+				var text = document.createTextNode(numbers[j - 1]);
+				cell.appendChild(text);
+				continue;
+			}
+
+			var img = document.createElement("img");
+			img.src = "white.png";
+			img.id = "white";
+			img.width = 60;
+			img.height = 60;
+			img.addEventListener("click", function()
+			{
+				if (this.id == "white")
+				{
+					this.src = "pink.png";
+					this.id = "pink";
+				}
+				else if (this.id == "pink")
+				{
+					this.src = "sky.png";
+					this.id = "sky";
+				}
+				else if (this.id == "sky")
+				{
+					this.src = "orange.png";
+					this.id = "orange";
+				}
+				else
+				{
+					this.src = "white.png";
+					this.id = "white";
+				}
+			});
+
+			cell.appendChild(img);
+		}
+	}
+
+	container.append(table);
+}
+
+function boards()
+{
+	var table = document.createElement("table");
+	var row = table.insertRow(0);
+	var cell1 = row.insertCell(0);
+	var cell2 = row.insertCell(1);
+
+	board(cell1);
+	board(cell2);
+
+	document.getElementById("boards").append(table);
+}
+
+</script>
+
+<body onload="boards()">
+<div id="boards"></div>
+</body>
