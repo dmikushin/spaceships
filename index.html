@@ -18,7 +18,9 @@ function board(container)
 				if (i == 0) continue;
 
 				var text = document.createTextNode(letters[i - 1]);
+				text.id = i - 1;
 				cell.appendChild(text);
+				cell.style.color = "black";
 				continue;
 			}
 
@@ -27,7 +29,9 @@ function board(container)
 				if (j == 0) continue;
 
 				var text = document.createTextNode(numbers[j - 1]);
+				text.id = j - 1;
 				cell.appendChild(text);
+				cell.style.color = "black";
 				continue;
 			}
 
@@ -36,6 +40,7 @@ function board(container)
 			img.id = "white";
 			img.width = 60;
 			img.height = 60;
+			img.id = (i - 1) + (j - 1) * 10;
 			img.addEventListener("click", function()
 			{
 				if (this.id == "white")
@@ -58,6 +63,24 @@ function board(container)
 					this.src = "white.png";
 					this.id = "white";
 				}
+			});
+			img.addEventListener("mouseover", function()
+			{
+				var j = ~~(this.id / 10);
+				var i = this.id % 10;
+
+				table = this.parentNode.parentNode.parentNode.parentNode;
+				table.rows[0].cells[i + 1].style.color = "red";
+				table.rows[j + 1].cells[0].style.color = "red";
+			});
+			img.addEventListener("mouseleave", function()
+			{
+				var j = ~~(this.id / 10);
+				var i = this.id % 10;
+
+				table = this.parentNode.parentNode.parentNode.parentNode;
+				table.rows[0].cells[i + 1].style.color = "black";
+				table.rows[j + 1].cells[0].style.color = "black";
 			});
 
 			cell.appendChild(img);
