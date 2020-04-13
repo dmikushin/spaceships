@@ -1,5 +1,11 @@
+<style>
+body
+{
+    background-color:#DDD;
+}
+</style>
 <script>
-function board(container)
+function makeBoard(container)
 {
 	var table = document.createElement("table");
 
@@ -37,31 +43,31 @@ function board(container)
 
 			var img = document.createElement("img");
 			img.src = "white.png";
-			img.id = "white";
+			img.className = "white";
 			img.width = 60;
 			img.height = 60;
 			img.id = (i - 1) + (j - 1) * 10;
 			img.addEventListener("click", function()
 			{
-				if (this.id == "white")
+				if (this.className == "white")
 				{
+					this.className = "pink";
 					this.src = "pink.png";
-					this.id = "pink";
 				}
-				else if (this.id == "pink")
+				else if (this.className == "pink")
 				{
+					this.className = "sky";
 					this.src = "sky.png";
-					this.id = "sky";
 				}
-				else if (this.id == "sky")
+				else if (this.className == "sky")
 				{
+					this.className = "orange";
 					this.src = "orange.png";
-					this.id = "orange";
 				}
 				else
 				{
+					this.className = "white";
 					this.src = "white.png";
-					this.id = "white";
 				}
 			});
 			img.addEventListener("mouseover", function()
@@ -90,21 +96,21 @@ function board(container)
 	container.append(table);
 }
 
-function boards()
+function makeBoards()
 {
 	var table = document.createElement("table");
 	var row = table.insertRow(0);
 	var cell1 = row.insertCell(0);
 	var cell2 = row.insertCell(1);
 
-	board(cell1);
-	board(cell2);
+	makeBoard(cell1);
+	makeBoard(cell2);
 
-	document.getElementById("boards").append(table);
+	var boards = document.getElementById("boards");
+	boards.append(table);
 }
-
 </script>
 
-<body onload="boards()">
+<body onload="makeBoards()">
 <div id="boards"></div>
 </body>
