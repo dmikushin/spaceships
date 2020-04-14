@@ -5,9 +5,30 @@ body
 }
 </style>
 <script>
+var BattleshipsGame =
+{
+	canvas : document.createElement("canvas"),
+	start : function()
+	{
+		this.canvas.width = 480;
+		this.canvas.height = 270;
+		this.context = this.canvas.getContext("2d");
+		document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+		this.frameNo = 0;
+
+		// ctx.drawImage(img, x, y, width, height);
+	},
+  	clear : function()
+	{
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+	}
+}
+
 function makeBoard(container)
 {
 	var table = document.createElement("table");
+	table.cellSpacing = 0;
+	table.cellPadding = 0;
 
 	var letters = [ 'а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'к' ];
 	var numbers = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];
